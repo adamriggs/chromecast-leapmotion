@@ -1,0 +1,53 @@
+<html>
+<head>
+	<title>Example minimum receiver</title>
+	<script src="//www.gstatic.com/cast/sdk/libs/receiver/2.0.0/cast_receiver.js"></script>
+	<script src="https://code.jquery.com/jquery-2.0.3.min.js"></script>
+	<link rel="stylesheet" type="text/css" href="https://onosen.org/onosen.org/public_html/misc/css/reciever.css" />
+
+	<style>
+        body {
+            background: center no-repeat url('img/MakerSpaceLogo.png');
+            background-color: #c3c3c3;
+        }
+
+        h1 {
+            color: #575757;
+            margin-left: 10px;
+            font: 24px Arial, sans-serif;
+        }
+	</style>
+</head>
+    <body>
+        <div class="messages">
+            <h1>Chromecast Custom Reciever App</h1>
+        </div>
+        <video id='media'/>
+        <script>
+
+            var namespace = "urn:x-cast:com.adamriggs";
+            var msg = $('.messages');
+            var windowWidth = $(window).width();
+            var windowHeight = $(window).height();
+
+            window.mediaElement = document.getElementById('media');
+            window.mediaManager = new cast.receiver.MediaManager(window.mediaElement);
+            window.castReceiverManager = cast.receiver.CastReceiverManager.getInstance();
+            window.messageBus = window.castReceiverManager.getCastMessageBus(namespace);
+
+            window.messageBus.onMessage = function(event){
+        		msg.append("<br>MESSAGE!!!");
+                msg.append("<br>type: "+event.type);
+                msg.append("<br>senderId: "+event.senderId);
+                msg.append("<br>data: "+event.data);
+        		msg.append("<br>*****");
+            };
+
+            // msg.append("<br>window.width: ", $(window).width());
+            // msg.append("<br>window.height: ", $(window).height());
+
+            window.castReceiverManager.start();
+
+        </script>
+    </body>
+</html>

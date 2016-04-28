@@ -1,0 +1,19 @@
+.background {
+  background-color: #c3c3c3;
+}
+
+.logo {
+  background: center no-repeat url(../img/MakerSpaceLogo.png);
+}
+
+.progressBar {
+  background-color: rgb(255, 64, 64);
+}
+
+.splash {
+  background-color: #c3c3c3;
+}
+
+.watermark {
+
+}
