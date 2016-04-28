@@ -22,7 +22,7 @@
         <div class="messages">
             <h1>Chromecast Custom Reciever App</h1>
         </div>
-        <img class="ball" src="img/ball.png" style="position:absolute;"/>
+        <img class="ball" src="img/ball.png" />
         <video id='media'/>
         <script>
 
@@ -32,6 +32,13 @@
             var windowWidth = $(window).width();
             var windowHeight = $(window).height();
 
+            ball.css({
+                position: 'absolute',
+                '-webkit-transform': 'translateZ(0)',
+                'transform': 'translateZ(0)'
+
+            })
+
             window.mediaElement = document.getElementById('media');
             window.mediaManager = new cast.receiver.MediaManager(window.mediaElement);
             window.castReceiverManager = cast.receiver.CastReceiverManager.getInstance();
@@ -40,18 +47,9 @@
             window.messageBus.onMessage = function(event){
 
                 var data = JSON.parse(event.data);
-                // msg.append("<br>MESSAGE!!!");
-                // msg.append("<br>type: "+event.type);
-                // msg.append("<br>senderId: "+event.senderId);
-                // msg.append("<br>data: "+event.data);
-                // msg.append("<br>*****");
 
-                // msg.append(data+"|");
-                // msg.append(data.x+"|");
-                // msg.append(data[0]+"|");
-
-                var posX = window.innerWidth * data.x;
-                var posY = window.innerHeight * data.y;
+                var posX = windowWidth * data.x;
+                var posY = windowHeight * data.y;
 
                 ball.css({
                     left: posX,
@@ -60,9 +58,6 @@
 
 
             };
-
-            // msg.append("<br>window.width: ", $(window).width());
-            // msg.append("<br>window.height: ", $(window).height());
 
             window.castReceiverManager.start();
 
