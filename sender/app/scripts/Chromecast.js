@@ -16,6 +16,7 @@ export default class Chromecast {
 		/**
 		 * variables
 		 */
+		this.appActive = false;
 		this.currentMediaSession = null;
 		this.currentVolume = 0.5;
 		this.progressFlag = 1;
@@ -135,6 +136,24 @@ export default class Chromecast {
 		}
 	}
 
+	sendMessage(Msg) {
+		var namespace = "urn:x-cast:com.adamriggs";
+		console.log(Msg);
+		if(this.appActive){
+			this.session.sendMessage(namespace, Msg, this.onSendMessageSuccess.bind(this), this.onSendMessageFailure.bind(this));
+		}
+	}
+
+	onSendMessageSuccess(event) {
+		//console.log("onSendMessageSuccess()");
+		//console.log("event: ", event);
+	}
+
+	onSendMessageFailure(event) {
+		//console.log("onSendMessageFailure()");
+		//console.log("event: ", event);
+	}
+
 	toggleApp() {
 		//console.log(session.status);
 		if(!this.session || this.session.status!="connected") {
@@ -146,6 +165,7 @@ export default class Chromecast {
 
 	launchApp() {
 		console.log('launching app...');
+		this.appActive = true;
 		chrome.cast.requestSession(this.onRequestSessionSuccess.bind(this), this.onLaunchError.bind(this));
 		// if (timer) {
 		//   clearInterval(timer);
@@ -172,6 +192,7 @@ export default class Chromecast {
 	}
 
 	stopApp() {
+		this.appActive = false;
 		this.session.stop(this.onStopAppSuccess.bind(this), this.onError.bind(this));
 	}
 

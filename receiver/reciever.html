@@ -1,6 +1,6 @@
 <html>
 <head>
-	<title>Example minimum receiver</title>
+	<title>Receiver</title>
 	<script src="//www.gstatic.com/cast/sdk/libs/receiver/2.0.0/cast_receiver.js"></script>
 	<script src="https://code.jquery.com/jquery-2.0.3.min.js"></script>
 	<link rel="stylesheet" type="text/css" href="https://onosen.org/onosen.org/public_html/misc/css/reciever.css" />
@@ -22,11 +22,13 @@
         <div class="messages">
             <h1>Chromecast Custom Reciever App</h1>
         </div>
+        <img class="ball" src="img/ball.png" style="position:absolute;"/>
         <video id='media'/>
         <script>
 
             var namespace = "urn:x-cast:com.adamriggs";
             var msg = $('.messages');
+            var ball = $('.ball');
             var windowWidth = $(window).width();
             var windowHeight = $(window).height();
 
@@ -36,11 +38,27 @@
             window.messageBus = window.castReceiverManager.getCastMessageBus(namespace);
 
             window.messageBus.onMessage = function(event){
-        		msg.append("<br>MESSAGE!!!");
-                msg.append("<br>type: "+event.type);
-                msg.append("<br>senderId: "+event.senderId);
-                msg.append("<br>data: "+event.data);
-        		msg.append("<br>*****");
+
+                var data = JSON.parse(event.data);
+                // msg.append("<br>MESSAGE!!!");
+                // msg.append("<br>type: "+event.type);
+                // msg.append("<br>senderId: "+event.senderId);
+                // msg.append("<br>data: "+event.data);
+                // msg.append("<br>*****");
+
+                // msg.append(data+"|");
+                // msg.append(data.x+"|");
+                // msg.append(data[0]+"|");
+
+                var posX = window.innerWidth * data.x;
+                var posY = window.innerHeight * data.y;
+
+                ball.css({
+                    left: posX,
+                    top: posY
+                });
+
+
             };
 
             // msg.append("<br>window.width: ", $(window).width());

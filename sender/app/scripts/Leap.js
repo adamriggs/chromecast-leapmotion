@@ -6,6 +6,9 @@ export default class LeapJS {
 
 		this.posX = 0;
 		this.posY = 0;
+
+		this.normX = 0;
+		this.normY = 0;
 	}
 	
 	toggleApp() {
@@ -25,6 +28,9 @@ export default class LeapJS {
 				// Convert the normalized coordinates to span the canvas
 				this.posX = window.innerWidth * normalizedPosition[0];
 				this.posY = window.innerHeight * (1 - normalizedPosition[1]);
+
+				this.normX = normalizedPosition[0];
+				this.normY = (1 - normalizedPosition[1]);
 
 				//console.log(this.posX, this.posY);
 			}

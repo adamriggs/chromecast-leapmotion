@@ -24,6 +24,8 @@ window['__onGCastApiAvailable'] = function(loaded, errorInfo) {
 
 function step() {
 	ball.setPos(myLeap.posX, myLeap.posY);
+	//console.log({'x':myLeap.normX, 'y':myLeap.normY});
+	chromecast.sendMessage({'x': myLeap.normX, 'y': myLeap.normY});
 	window.requestAnimationFrame(step.bind(this));
 }
 
