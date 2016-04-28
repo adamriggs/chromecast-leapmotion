@@ -1,0 +1,1 @@
+Chromecast sender and reciever apps.  Sender communicates with Leapmotion and sends coordinates to the reciver.  Reciever renders the interaction on the Chromecast.
